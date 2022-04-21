@@ -1,59 +1,55 @@
-## CSFS1020 Server Project
+# CSFS1020 Course Project - RESTFUL API SERVER
 
 The scope of this project consisted of creating a RESTful JSON API backend server for a future contact form.
 
+## Definitions
+
+- **API**- Application Programming Interface
+- **REST**- REpresentational State Transfer
+- **CRUD**- CRUD is an acronym for Create Read Update Delete, a set of rules to follow when building an API.
+- **JSON**- Javascript Object Notation. It is a common format for sending and requesting data through a REST API.
+- **HTTP**- Hypertext Transfer Protocol. It gives users a way to interact with web resources by transmitting hypertext messages between clients and servers.
+
 ## How to Run
 
-Start: server.js
-Terminal: Start server in terminal with command: nodemon server.js || node server.js
-Local Port: This server runs locally at: http://localhost:5000
+- **Start**: server.js
+
+- **Terminal**: Start server in terminal with command: nodemon server.js || node server.js
+
+- **Local Port**: This server runs locally at: **http://localhost:5000**
 
 ## Dependencies
 
-Node - ( npm init - y )
-Express - ( npm i express --save )
-JSON Web Token - ( npm i jsonwebtoken ) - Used to create JSON web tokens
-UUID - ( npm i uuid ) - Used to generate id numbers
-Dotenv - ( npm i dotenv ) -
-Argon2 - ( npm i argon2 ) - Used to hash user passwords
+- **Node** - ( npm init - y ) - Server runtime environment
+- **Express** - ( npm i express ) - Web application framework
+- **JSON Web Token** - ( npm i jsonwebtoken ) - Used to create JSON web tokens
+- **UUID** - ( npm i uuid ) - Used to generate id numbers
+- **Dotenv** - ( npm i dotenv ) - Automatically loads environment variables from .env file
+- **Argon2** - ( npm i argon2 ) - Used to hash user passwords
 
 ## Dev Dependencies
 
-Nodemon - ( npm i --save-dev nodemon ) - Used to automatically refresh server.
-
-Rest Client VS Code Extension or Postman - Used to test routes.
-
-Rest Client allows you to run route tests via the test.rest file in the project directly in your code editor. An example syntax is included below. Once test parameters are entered, press 'Send Request' button.
-
-POST http://localhost:3000/contact_form/entries
-Content-Type: application/json
-
-{
-"key": "value",
-"key": "value",
-"key": "value",
-"key": "value"
-}
+- **Nodemon** - ( npm i --save-dev nodemon ) - Used to automatically refresh server.
 
 ## HTTP Methods
 
-GET - pulls/gets data from the backend.
-PUT - adds new data.
-POST - updates data.
-PATCH - updated partial data.
-DELETE - deletes data.
+- **GET**- pulls/gets data from the backend.
+- **PUT**- adds new data.
+- **POST**- updates data.
+- **PATCH**- updates partial data.
+- **DELETE** - deletes data.
 
 ## HTTP Codes
 
-The following HTTP codes have been used via the routes outlined in userRoutes.js.
+The following HTTP codes have been used within this project.
 
-200 - Okay
-201 - Accepted
-400 - Bad Request
-401 - Unauthorized
-403 - Forbidden
-404 - Not Found
-500 = Internal Server Error
+- **200** - Okay
+- **201** - Accepted
+- **400** - Bad Request
+- **401** - Unauthorized
+- **403** - Forbidden
+- **404** - Not Found
+- **500** = Internal Server Error
 
 ## Package Setup
 
