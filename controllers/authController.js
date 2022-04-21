@@ -1,4 +1,4 @@
-import { usersMasterList, verifyPassword } from "./validationController.js";
+import { usersMasterList, verifyPassword, createToken } from "./validationController.js";
 
 
 
@@ -45,7 +45,7 @@ export const isRegisteredUser = async (req, res, next) => {
     
     if (foundUser && isValidPassword) {
         return res.status(200).json({
-            token: "token"
+            token: createToken()
         })
     } else {
         return res.status(401).json({

@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from 'uuid'; // id generator npm
 import * as bcrypt from 'bcrypt'; // hash npm
 import * as argon2 from 'argon2'; // hash npm
 import jwt from 'jsonwebtoken'; // json web token npm
-import dotenv from 'dotenv';
 
 
 
@@ -102,7 +101,18 @@ export const verifyPassword = async (hashOnFile, enteredPassword) => {
 
 // creates json web token
 
-export const createToken = () => {}
+export const createToken = () => {
+    let jwtSecretKey = process.env.JWT_SECRET_KEY;
+    let data = {
+        time: Date(),
+        userId: 15
+    }
+
+    const token = jwt.sign(data, jwtSecretKey);
+    return token;
+}
+
+createToken();
 
 
 

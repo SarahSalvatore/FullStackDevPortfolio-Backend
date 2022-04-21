@@ -1,4 +1,5 @@
 import express from "express";
+import "dotenv/config";
 import usersRoutes from "./routes/users.js";
 import contactFormRoutes from "./routes/contactForm.js";
 import authRoutes from "./routes/auth.js";
@@ -6,7 +7,8 @@ import authRoutes from "./routes/auth.js";
 
 const app = express();
 
-const port = 5000;
+
+const PORT = 5000;
 
 
 app.use(express.json());
@@ -17,7 +19,7 @@ app.use("/contact_form/entries", contactFormRoutes);
 
 app.use("/auth", authRoutes);
 
-app.get("/", (req, res) => res.status(200).json(`Node and Express server running on port: ${port}`));
+app.get("/", (req, res) => res.status(200).json(`Node and Express server running on port: ${PORT}`));
 
 
 // Global error handler
@@ -28,4 +30,4 @@ app.use((err, req, res, next) => {
 })
 
 
-app.listen(port, () => console.log(`REST API server ready on http://localhost:${port}`));
+app.listen(PORT, () => console.log(`REST API server ready on http://localhost:${PORT}`));
