@@ -43,11 +43,11 @@ The scope of this project consisted of creating a RESTful JSON API backend serve
 
 The following routes are available:
 
-- /users - POST - creates a new user.
-- /contact_form/entries - POST - creates an entry when user submits contact form.
-- /auth - POST = checks for registered user and creates token.
-- /contact_form/entries - GET - gets entries master list with a valid token.
-- /contact_form/entries/:id - GET = gets entry by id with a valid token.
+- **/users** - POST - creates a new user.
+- **/contact_form/entries** - POST - creates an entry when user submits contact form.
+- **/auth** - POST = checks for registered user and creates token.
+- **/contact_form/entries** - GET - gets entries master list with a valid token.
+- **/contact_form/entries/:id** - GET = gets entry by id with a valid token.
 
 ## HTTP Codes
 
