@@ -38,18 +38,3 @@ export const createUser = async (req, res) => {
     usersMasterList.push(newUserSubmission);
         return res.status(201).json(newUserSubmission);
 }
-
-
-
-// creates a new user - Using bcrypt - Keeping this here for learning purposes
-
-// export const createUser = (req, res) => {
-//         let newUserSubmission = {
-//             id: generateUserId(), 
-//             name: req.body.name, 
-//             email: req.body.email,
-//             password: hashUserPassword(req.body.password)
-//         };
-//         usersMasterList.push(newUserSubmission);
-//             return res.status(201).json(newUserSubmission);
-// }

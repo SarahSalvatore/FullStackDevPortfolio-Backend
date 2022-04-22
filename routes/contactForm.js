@@ -20,7 +20,7 @@ router.get("/", verifyToken, (req, res) => {
 
 // Route to get a contact form entry by id - /contact_form/entries/:id
 
-router.get("/:id", getContactFormById); 
+router.get("/:id", verifyToken, getContactFormById); 
 
 
 

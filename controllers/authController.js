@@ -25,7 +25,6 @@ export const checkRegisteredUserProperties = (req, res, next) => {
 
 // checks if user is a registered user and provides jwt token
 
-
 export const isRegisteredUser = async (req, res, next) => {
 
     const { email, password } = req.body;

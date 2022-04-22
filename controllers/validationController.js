@@ -6,30 +6,7 @@ import jwt from 'jsonwebtoken'; // json web token npm
 
 // placeholder for users database
 
-export let usersMasterList = [
-
-    {
-        "id": "15fa0fa2-8101-492a-951f-d553454abfcc",
-        "name": "Sarah Doe",
-        "email": "124@gmail.com",
-        "password": "$2b$10$UzuYZR.EPGfBnfzzUF6BEesHYlhlDMF0IioXXUUZGLA.NyYKHE5V."
-      },
-
-      {
-        "id": "5ec08fa1-2132-420c-9569-bd335268a95b",
-        "name": "Sarah Doe",
-        "email": "thisisnot@gmail.com",
-        "password": "$2b$10$log09LGLxW4V6aRO/yeYceU/OqlylxC6GmFGX8YX3V3EEh3a07v2."
-      },
-
-      {
-        "id": "d02153a5-ca48-4072-8971-22c639acfdf9",
-        "name": "Jane Doe",
-        "email": "doe-ray-mi@gmail.com",
-        "password": "$argon2i$v=19$m=4096,t=3,p=1$zpNNF9qyyWsdaCqbwOIxEg$s0PP36nbjw3zVjWhjt9wpd/krcKu4zxtfjrRblAbBTY"
-      }
-
-  ];
+export let usersMasterList = [];
 
 
 // placeholder for contact form database
