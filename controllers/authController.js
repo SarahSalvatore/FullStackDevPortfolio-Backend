@@ -1,6 +1,9 @@
-import { usersMasterList, verifyPassword, createToken } from "./validationController.js";
+import { usersMasterList, verifyPassword } from "./validationController.js";
+import jwt from 'jsonwebtoken'; // json web token npm
 
 
+
+// checks for missing required properties
 
 export const checkRegisteredUserProperties = (req, res, next) => {
     const registeredUserProperties = [ "email", "password" ];
@@ -20,21 +23,7 @@ export const checkRegisteredUserProperties = (req, res, next) => {
         }
 
 
-// export const isRegisteredUser = (req, res, next) => {
-//     const { email, password } = req.body;
-//     const foundUser = usersMasterList.find((user) => user.email == email);
-//     const isValidPassword = bcrypt.compareSync(password, foundUser.password)
-    
-//     if (foundUser && isValidPassword) {
-//         return res.status(200).json({
-//             message: "Correct credentials provided"
-//         })
-//     } else {
-//         return res.status(401).json({
-//             message: "incorrect credentials provided"
-//         })
-//     } 
-// }
+// checks if user is a registered user and provides jwt token
 
 
 export const isRegisteredUser = async (req, res, next) => {
@@ -44,8 +33,14 @@ export const isRegisteredUser = async (req, res, next) => {
     let isValidPassword = await verifyPassword(foundUser.password, password);
     
     if (foundUser && isValidPassword) {
+
+        const accessToken = jwt.sign(
+            { email },
+            `${process.env.ACCESS_TOKEN_SECRET}`
+            // { expiresIn: "9000s" } 
+        )
         return res.status(200).json({
-            token: createToken()
+            token: accessToken
         })
     } else {
         return res.status(401).json({
@@ -53,14 +48,3 @@ export const isRegisteredUser = async (req, res, next) => {
         })
     } 
 }
-
-// give me a username and password, if i can find a match/accurrcay ill give you a token.
-
-// give me a token, ill make sure its a valid token
-
-
-// part 2 is due before next class. 
-
-// part 3 will be a working session. and due a week after the course is done.
-
-// 

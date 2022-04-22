@@ -1,8 +1,8 @@
 import { generateUserId, contactFormMasterList } from "./validationController.js"
+import jwt from 'jsonwebtoken'; // json web token npm
 
 
-
-// checks for missing required contact form properties
+// checks for missing required properties
 
 export const checkMissingContactFormProperties = (req, res, next) => {
 
@@ -17,7 +17,7 @@ export const checkMissingContactFormProperties = (req, res, next) => {
         if (missingContactFormProperties.length) {
                 return res.status(400).json({
                     message: "validation error",
-                    invalid: missingContactFormProperties})
+                    invalid: missingContactFormProperties })
             };
     next();
         }
@@ -27,16 +27,17 @@ export const checkMissingContactFormProperties = (req, res, next) => {
 
 export const createContactFormEntry = (req, res) => {
 
-    let newContactFormSubmission = {id: generateUserId(), ...req.body};
+    let newContactFormSubmission = { id: generateUserId(), ...req.body };
     contactFormMasterList.push(newContactFormSubmission);
         return res.status(201).json(newContactFormSubmission);
 }
 
 
-// returns master list of contact form entries
+// returns master list of contact form entries from jwt token
 
-export const getContactFormSubmissions = () => {}
-
+export const getContactFormSubmissions = () => {
+    return contactFormMasterList;
+}
 
 
 // returns a contact form entry by id
@@ -50,58 +51,3 @@ export const getContactFormById = (req, res) => {
 return res.json(contactFormEntry)
 }
 
-
-
-
-
-
-
-
-
-
-// Type: GET
-// Access: Private
-// Description: route to return all contact form submissions when user has valid JWT token.
-
-// Okay HTTP Code: 200
-// Forbidden HTTP Code: 403
-
-// router.get("/contact_form/entries", (req, res) => {
-    
-//     const { token } = req.body;
-//     let authorizedToken = "To be determined";
-    
-//     if (token == authorizedToken) {
-//     return res.status(200).json(contactFormMasterList);
-//     } else {
-//     return res.status(403).json({message: "token not provided"});
-// }
-// })
-
-
-// Tupe: GET
-// Access:
-// Description: route to return a contact form submission when id and JWT are provided.
-
-// Okay HTTP Code: 200
-// Bad Request HTTP Code: 400
-// Forbidden HTTP Code: 403
-// Not Found HTTP Code: 404
-
-// router.get("/contact_form/entries/:id", (req, res) => {
-
-//     const enteredUserId = parseInt(req.params.id);
-//     const enteredUserToken = req.body;
-//     const requiredUserToken = "to be determined";
-
-//     if (!(enteredUserId && enteredUserToken)) res.status(400).send("All input is required to log in.");
-
-//     if(enteredUserToken === requiredUserToken) {
-//         contactFormMasterList.find((user) => {
-//             if (enteredUserId == user.id) {
-//                 return res.status(200).json(user);
-//             } return res.status(404).json({message: `user ${enteredUserId} not found`});
-//         })
-//     } 
-//     return res.status(403).json({message: "token not provided"});
-// })

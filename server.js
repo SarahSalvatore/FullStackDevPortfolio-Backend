@@ -1,5 +1,5 @@
 import express from "express";
-import "dotenv/config";
+import * as dotenv from "dotenv";
 import usersRoutes from "./routes/users.js";
 import contactFormRoutes from "./routes/contactForm.js";
 import authRoutes from "./routes/auth.js";
@@ -7,8 +7,9 @@ import authRoutes from "./routes/auth.js";
 
 const app = express();
 
+dotenv.config();
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 
 app.use(express.json());

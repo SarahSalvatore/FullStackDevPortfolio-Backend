@@ -12,9 +12,9 @@ The scope of this project consisted of creating a RESTful JSON API backend serve
 
 ## How to Run
 
-- **Start**: server.js
+- **Start**: node server.js
 
-- **Terminal**: Start server in terminal with command: nodemon server.js || node server.js
+- **Dev Start**: nodemon server.js
 
 - **Local Port**: This server runs locally at: **http://localhost:5000**
 
@@ -29,7 +29,7 @@ The scope of this project consisted of creating a RESTful JSON API backend serve
 
 ## Dev Dependencies
 
-- **Nodemon** - ( npm i --save-dev nodemon ) - Used to automatically refresh server.
+- **Nodemon** - ( npm i --save-dev nodemon ) - Used to automatically restart server upon saved changes.
 
 ## HTTP Methods
 
@@ -38,6 +38,16 @@ The scope of this project consisted of creating a RESTful JSON API backend serve
 - **POST**- updates data.
 - **PATCH**- updates partial data.
 - **DELETE** - deletes data.
+
+## Routes
+
+The following routes are available:
+
+- /users - POST - creates a new user.
+- /contact_form/entries - POST - creates an entry when user submits contact form.
+- /auth - POST = checks for registered user and creates token.
+- /contact_form/entries - GET - gets entries master list with a valid token.
+- /contact_form/entries/:id - GET = gets entry by id with a valid token.
 
 ## HTTP Codes
 
@@ -53,8 +63,13 @@ The following HTTP codes have been used within this project.
 
 ## Package Setup
 
-This project contains a package.json file and a package-lock.json file.
-Node modules, .env and other items have been included in a .gitignore file.
+This project contains:
+
+- A package.json file and a package-lock.json file.
+- Routes can be found via the routes folder.
+- Controllers can be found via the controllers folder.
+- The data folder contains two json files (users and entries) in place of a database.
+- Node modules, .env and other pertinent items have been included in a .gitignore file.
 
 ## Contributions
 

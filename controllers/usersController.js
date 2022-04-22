@@ -1,7 +1,7 @@
 import { generateUserId, usersMasterList, hashForOnceAndForAll } from "./validationController.js";
 
 
-// checks for missing required user properties
+// checks for missing required properties
 
 export const checkMissingUserProperties = (req, res, next) => {
 

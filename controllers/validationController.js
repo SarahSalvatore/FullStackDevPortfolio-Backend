@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid'; // id generator npm
-import * as bcrypt from 'bcrypt'; // hash npm
 import * as argon2 from 'argon2'; // hash npm
 import jwt from 'jsonwebtoken'; // json web token npm
 
@@ -99,27 +98,99 @@ export const verifyPassword = async (hashOnFile, enteredPassword) => {
 }
 
 
-// creates json web token
+export const authenticateToken = (req, res, next) => {
+    
+    const bearerAuth = req.headers[ "Authorization" ];
+    const bearerToken = bearerAuth.split(" ")[1];
 
-export const createToken = () => {
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
-    let data = {
-        time: Date(),
-        userId: 15
+    if (bearerToken == null) { 
+        return res.status(403).json({
+        message: "Are you getting stuck at null" })
     }
-
-    const token = jwt.sign(data, jwtSecretKey);
-    return token;
+    jwt.verify(bearerToken, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
+        if (err) {
+            return res.status(403).json({
+                message: "or stuck at verify."
+            })
+        }
+        req.token = token
+    })
+    next();
 }
 
-createToken();
+// creates json web token
 
+// export const createToken = () => {
+//     let jwtSecretKey = process.env.JWT_SECRET_KEY;
+//     let payload = {
+//         time: Date(),
+//         userId: 15
+//     }
 
-
-// Bcrypt salts and hashes password (syncronous method) - Keeping here for learning purposes
-
-// export const hashUserPassword = (password) => {
-//     const salt = bcrypt.genSaltSync(10);
-//     const hash = bcrypt.hashSync(password, salt);
-//     return hash;
+//     const token = jwt.sign(payload, jwtSecretKey);
+//     return token;
 // }
+
+
+// verify json web token
+
+// export const verifyToken = (req, res, next) => {
+
+//     const bearerHeader = req.headers["Authorization"];
+//     if (typeof bearerHeader !== "undefined") {
+
+//         const bearerToken = bearerHeader.split(" ")[1];
+    
+//         jwt.verify(bearerToken, ACCESS_TOKEN_SECRET);
+    
+//         next();
+    
+//       } else {
+    
+//         res.status(403).json({
+//             message: "token is not valid"
+//         });
+    
+//       }
+
+// }
+
+
+// export const verifyToken = (req, res, next) => {
+//     const token = req.headers["Authorization"];
+
+//     if (token) {
+//         const decode = jwt.verify(token, ACCESS_TOKEN_SECRET)
+//         console.log(decode)
+//     } else {
+//         console.log("errorerrorerror")
+//     }
+//     next()
+// }
+
+export const verifyToken = (req, res, next) => {
+
+        const bearerToken = req.headers.authorization.split(' ')[1]
+
+        if (bearerToken !== "undefined") {
+        
+        jwt.verify(bearerToken, `${process.env.ACCESS_TOKEN_SECRET}`, (err, authData) => {
+            if (err) {
+                res.status(403).json({
+                    message: "valid token not provided"
+                })
+            }
+            else {
+                res.status(200).json({
+                    message: authData
+                })
+            }
+        })
+
+    } else {
+        res.status(403).json({
+            message: "valid token not provided"
+        })
+    }
+}
+
