@@ -36,15 +36,13 @@ export const isRegisteredUser = async (req, res, next) => {
 
         const accessToken = jwt.sign(
             { email },
-            `${process.env.ACCESS_TOKEN_SECRET}`
-            // { expiresIn: "9000s" } 
+            `${process.env.ACCESS_TOKEN_SECRET}`,
+            { expiresIn: "900s" } 
         )
         return res.status(200).json({
             token: accessToken
         })
     } else {
-        return res.status(401).json({
-            message: "incorrect credentials provided"
-        })
+        return res.status(401).json({ message: "incorrect credentials provided" })
     } 
 }

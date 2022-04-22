@@ -45,7 +45,7 @@ export const validateEmail = (req, res, next) => {
     let regex = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])")
     
     if (!regex.test(email)) {
-                return res.status(400).json({message:"invalid email address"});
+                return res.status(400).json({ message:"invalid email address" });
     }
     next();
 }
@@ -57,7 +57,7 @@ export const checkPasswordLength = (req, res, next) => {
 
     let password = req.body.password;
     if (password.length < 8) {
-        return res.status(400).json({message: "password must be at least 8 characters."})
+        return res.status(400).json({ message: "password must be at least 8 characters." })
     }
     next();
     }
@@ -76,7 +76,7 @@ export const hashForOnceAndForAll = async (password) => {
         const hash = await argon2.hash(password);
         return hash;
     } catch {
-        return res.status(500).json({message: "internal error. Cannot fulfill request"})
+        return res.status(500).json({ message: "internal error. Cannot fulfill request" })
     }
 }
 
@@ -98,99 +98,23 @@ export const verifyPassword = async (hashOnFile, enteredPassword) => {
 }
 
 
-export const authenticateToken = (req, res, next) => {
-    
-    const bearerAuth = req.headers[ "Authorization" ];
-    const bearerToken = bearerAuth.split(" ")[1];
-
-    if (bearerToken == null) { 
-        return res.status(403).json({
-        message: "Are you getting stuck at null" })
-    }
-    jwt.verify(bearerToken, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
-        if (err) {
-            return res.status(403).json({
-                message: "or stuck at verify."
-            })
-        }
-        req.token = token
-    })
-    next();
-}
-
-// creates json web token
-
-// export const createToken = () => {
-//     let jwtSecretKey = process.env.JWT_SECRET_KEY;
-//     let payload = {
-//         time: Date(),
-//         userId: 15
-//     }
-
-//     const token = jwt.sign(payload, jwtSecretKey);
-//     return token;
-// }
-
-
-// verify json web token
-
-// export const verifyToken = (req, res, next) => {
-
-//     const bearerHeader = req.headers["Authorization"];
-//     if (typeof bearerHeader !== "undefined") {
-
-//         const bearerToken = bearerHeader.split(" ")[1];
-    
-//         jwt.verify(bearerToken, ACCESS_TOKEN_SECRET);
-    
-//         next();
-    
-//       } else {
-    
-//         res.status(403).json({
-//             message: "token is not valid"
-//         });
-    
-//       }
-
-// }
-
-
-// export const verifyToken = (req, res, next) => {
-//     const token = req.headers["Authorization"];
-
-//     if (token) {
-//         const decode = jwt.verify(token, ACCESS_TOKEN_SECRET)
-//         console.log(decode)
-//     } else {
-//         console.log("errorerrorerror")
-//     }
-//     next()
-// }
-
 export const verifyToken = (req, res, next) => {
 
-        const bearerToken = req.headers.authorization.split(' ')[1]
+    const bearerToken = req.headers.authorization.split(' ')[1]
 
-        if (bearerToken !== "undefined") {
-        
-        jwt.verify(bearerToken, `${process.env.ACCESS_TOKEN_SECRET}`, (err, authData) => {
-            if (err) {
-                res.status(403).json({
-                    message: "valid token not provided"
-                })
-            }
-            else {
-                res.status(200).json({
-                    message: authData
-                })
+    if (bearerToken !== "undefined") {
+    
+    jwt.verify(bearerToken, `${process.env.ACCESS_TOKEN_SECRET}`, (err, authData) => {
+        if (err) {
+            res.status(403).json({ message: "valid token not provided" })
+        }
+        else {
+            next();
             }
         })
 
-    } else {
-        res.status(403).json({
-            message: "valid token not provided"
-        })
-    }
+} else {
+    res.status(403).json({ message: "valid token not provided" })
+}
 }
 

@@ -33,13 +33,6 @@ export const createContactFormEntry = (req, res) => {
 }
 
 
-// returns master list of contact form entries from jwt token
-
-export const getContactFormSubmissions = () => {
-    return contactFormMasterList;
-}
-
-
 // returns a contact form entry by id
 
 export const getContactFormById = (req, res) => {

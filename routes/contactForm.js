@@ -1,7 +1,6 @@
 import express from "express";
-import jwt from 'jsonwebtoken'; // json web token npm
-import { checkMissingContactFormProperties, createContactFormEntry, getContactFormSubmissions, getContactFormById } from "../controllers/contactFormController.js";
-import { validateEmail, authenticateToken, verifyToken } from "../controllers/validationController.js";
+import { checkMissingContactFormProperties, createContactFormEntry, getContactFormById } from "../controllers/contactFormController.js";
+import { validateEmail, verifyToken, contactFormMasterList } from "../controllers/validationController.js";
 
 
 const router = express.Router();
@@ -14,7 +13,9 @@ router.post("/", checkMissingContactFormProperties, validateEmail, createContact
 
 // Route to get all contact form submissions - /contact_form/entries
 
-router.get("/", verifyToken); 
+router.get("/", verifyToken, (req, res) => {
+    res.status(200).send(contactFormMasterList)
+}); 
 
 
 // Route to get a contact form entry by id - /contact_form/entries/:id
