@@ -1,17 +1,25 @@
-import { v4 as uuidv4 } from 'uuid'; // id generator npm
-import * as argon2 from 'argon2'; // hash npm
-import jwt from 'jsonwebtoken'; // json web token npm
-
+import { v4 as uuidv4 } from "uuid"; // id generator npm
+import * as argon2 from "argon2"; // hash npm
+import jwt from "jsonwebtoken"; // json web token npm
 
 
 // placeholder for users database
 
-export let usersMasterList = [];
+export let usersMasterList = [ 
+    
+    {
+    "id": "4a6eeffb-d7b1-4cf4-8e83-76f763235392",
+    "name": "Sarah S",
+    "email": "doe-ray-mi@gmail.com",
+    "password": "$argon2i$v=19$m=4096,t=3,p=1$aIrguz1DOwXJ3nvacWjkyQ$0VUGW5+sk7mv84Wh0GW6Fzwb9z6lkw/YYuOHm9StUe8"
+}
 
+];
 
 // placeholder for contact form database
 
 export let contactFormMasterList = [];
+
 
 
 // validates email address
@@ -45,7 +53,7 @@ export const checkPasswordLength = (req, res, next) => {
 export const generateUserId = () => uuidv4()
 
 
-// Argon2 salts and hashes password (asynchronous method)
+// Argon2 salts and hashes password
 
 export const hashForOnceAndForAll = async (password) => {
 
@@ -74,6 +82,8 @@ export const verifyPassword = async (hashOnFile, enteredPassword) => {
 
 }
 
+
+// verifies a JSON web token
 
 export const verifyToken = (req, res, next) => {
 

@@ -1,4 +1,4 @@
-# CSFS1020 Course Project - RESTFUL API SERVER
+# CSFS1020 Course Project - RESTful API SERVER
 
 The scope of this project consisted of creating a RESTful JSON API backend server for a future contact form.
 
@@ -18,19 +18,6 @@ The scope of this project consisted of creating a RESTful JSON API backend serve
 
 - **Local Port**: This server runs locally at: **http://localhost:5000**
 
-## Dependencies
-
-- **Node** - ( npm init - y ) - Server runtime environment
-- **Express** - ( npm i express ) - Web application framework
-- **JSON Web Token** - ( npm i jsonwebtoken ) - Used to create JSON web tokens
-- **UUID** - ( npm i uuid ) - Used to generate id numbers
-- **Dotenv** - ( npm i dotenv ) - Automatically loads environment variables from .env file
-- **Argon2** - ( npm i argon2 ) - Used to hash user passwords
-
-## Dev Dependencies
-
-- **Nodemon** - ( npm i --save-dev nodemon ) - Used to automatically restart server upon saved changes.
-
 ## HTTP Methods
 
 - **GET**- pulls/gets data from the backend.
@@ -45,9 +32,21 @@ The following routes are available:
 
 - **/users** - POST - creates a new user.
 - **/contact_form/entries** - POST - creates an entry when user submits contact form.
-- **/auth** - POST = checks for registered user and creates token.
+- **/auth** - POST - checks for registered user and creates token.
 - **/contact_form/entries** - GET - gets entries master list with a valid token.
-- **/contact_form/entries/:id** - GET = gets entry by id with a valid token.
+- **/contact_form/entries/:id** - GET - gets entry by id with a valid token.
+
+## File System
+
+This server uses the Node file system module in its defined routes in order to read and write data. The data folder in the directory includes the following two empty json files:
+
+- **users.json**
+- **entries.json**
+
+The following fs methods are utilized:
+
+- **fs.readFile()** - used to read the json file specified. The default flag, **r** for reading has been used and therefore not explicitly stated. The file will open for reading.
+- **fs.writeFile()** - used to write to the json file. The default flag, **w** for writing, has been used and therefore not explicitly stated. If the file does not exist, an empty file will be created. If the file does exist, the content will be replaced.
 
 ## HTTP Codes
 
@@ -59,7 +58,7 @@ The following HTTP codes have been used within this project.
 - **401** - Unauthorized
 - **403** - Forbidden
 - **404** - Not Found
-- **500** = Internal Server Error
+- **500** - Internal Server Error
 
 ## Package Setup
 
@@ -68,8 +67,8 @@ This project contains:
 - A package.json file and a package-lock.json file.
 - Routes can be found via the routes folder.
 - Controllers can be found via the controllers folder.
-- The data folder contains two json files (users and entries) in place of a database.
-- Node modules, .env and other pertinent items have been included in a .gitignore file.
+- The data folder contains two empty json files (users and entries) in place of a database.
+- Node modules, .env, users/entries.json, and other pertinent items have been included in a .gitignore file.
 
 ## Contributions
 

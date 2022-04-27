@@ -1,4 +1,5 @@
-import { usersMasterList, verifyPassword } from "./validationController.js";
+import { verifyPassword } from "./validationController.js";
+import { readMasterList, users } from "./databasehandler.js";
 import jwt from 'jsonwebtoken'; // json web token npm
 
 
@@ -28,20 +29,27 @@ export const checkRegisteredUserProperties = (req, res, next) => {
 export const isRegisteredUser = async (req, res, next) => {
 
     const { email, password } = req.body;
-    const foundUser = usersMasterList.find((user) => user.email == email);
-    let isValidPassword = await verifyPassword(foundUser.password, password);
-    
-    if (foundUser && isValidPassword) {
 
-        const accessToken = jwt.sign(
-            { email },
-            `${process.env.ACCESS_TOKEN_SECRET}`,
-            { expiresIn: "900s" } 
-        )
-        return res.status(200).json({
-            token: accessToken
+    try {
+        const usersMasterList = await readMasterList(users);
+        const foundUser = usersMasterList.find((user) => user.email == email);
+        let isValidPassword = await verifyPassword(foundUser.password, password);
+    
+        if (foundUser && isValidPassword) {
+
+            const accessToken = jwt.sign(
+                { email },
+                `${process.env.ACCESS_TOKEN_SECRET}`,
+                { expiresIn: "900s" } 
+            )
+            return res.status(200).json({
+                token: accessToken
+            })
+        } return res.status(401).json({ message: "incorrect credentials provided" }) 
+        
+    } catch (err) {
+        return res.status(500).json({
+            message: "Oops. Something has gone wrong. Our team has been notified."
         })
-    } else {
-        return res.status(401).json({ message: "incorrect credentials provided" })
-    } 
+    }
 }
