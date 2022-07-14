@@ -8,12 +8,7 @@ import {
 // checks for missing required properties
 
 export const checkMissingContactFormProperties = (req, res, next) => {
-  const requiredContactFormProperties = [
-    "name",
-    "email",
-    "phoneNumber",
-    "content",
-  ];
+  const requiredContactFormProperties = ["name", "email", "message"];
   let missingContactFormProperties = [];
 
   requiredContactFormProperties.forEach((prop) => {
