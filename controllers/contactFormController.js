@@ -28,7 +28,12 @@ export const checkMissingContactFormProperties = (req, res, next) => {
 // creates a new contact form entry
 
 export const createContactFormEntry = async (req, res) => {
-  let newContactFormSubmission = { id: generateUserId(), ...req.body };
+  let newContactFormSubmission = {
+    id: generateUserId(),
+    name: req.body.name,
+    email: req.body.email,
+    message: req.body.message,
+  };
 
   try {
     let contactFormMasterList = await readMasterList(entries);

@@ -2,7 +2,19 @@
   {
     "id": 1,
     "name": "Rick Sanchez",
-    "email": "picklerick@123.com",
-    "message": "Wubba Lubba Dub Dub"
+    "email": "picklerick@multiverse.com",
+    "message": "Wubba Lubba Dub Dub!"
+  },
+  {
+    "id": 2,
+    "name": "Morty Smith",
+    "email": "mortysmith@hotmail.com",
+    "message": "Aww Geez..."
+  },
+  {
+    "id": "7f20a080-8ef6-4b90-8553-05138a729485",
+    "name": "Jerry Smith",
+    "email": "jerrysmith@hotmail.com",
+    "message": "Hello there!"
   }
 ]

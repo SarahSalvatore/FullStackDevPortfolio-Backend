@@ -2,10 +2,6 @@ import { v4 as uuidv4 } from "uuid"; // id generator npm
 import * as argon2 from "argon2"; // hash npm
 import jwt from "jsonwebtoken"; // json web token npm
 
-// placeholder for contact form database
-
-export let contactFormMasterList = [];
-
 // validates email address
 
 export const validateEmail = (req, res, next) => {

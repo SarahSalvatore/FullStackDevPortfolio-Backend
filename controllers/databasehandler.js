@@ -2,7 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 
 // path to entries.json -- Not sure why I have to add my folder name to the file path but it doesn't work otherwise?
-export const entries = path.resolve("../1020CP/data/entries.json");
+export const entries = path.resolve("../Backend/data/entries.json");
 
 // returns read file content to store in a variable
 
