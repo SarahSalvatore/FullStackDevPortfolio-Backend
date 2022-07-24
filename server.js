@@ -5,10 +5,14 @@ const app = express();
 
 const PORT = 4000;
 
-app.use(express.json());
+app.use(
+  express.json({
+    type: ["application/json", "text/plain"],
+  })
+);
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Origin", "*");
   next();
 });
 

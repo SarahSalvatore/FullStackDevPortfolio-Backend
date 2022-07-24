@@ -30,9 +30,7 @@ export const checkMissingContactFormProperties = (req, res, next) => {
 export const createContactFormEntry = async (req, res) => {
   let newContactFormSubmission = {
     id: generateUserId(),
-    name: req.body.name,
-    email: req.body.email,
-    message: req.body.message,
+    ...req.body,
   };
 
   try {

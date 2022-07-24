@@ -4,11 +4,11 @@ import { readMasterList, entries } from "../controllers/databasehandler.js";
 
 const router = express.Router();
 
-// Route to create a new contact form entry - /contact_form/entries
+// Route to create a new contact form entry - /entries
 
 router.post("/", createContactFormEntry);
 
-// Route to get all contact form submissions - /contact_form/entries
+// Route to get all contact form submissions - /entries
 
 router.get("/", async (req, res) => {
   try {
