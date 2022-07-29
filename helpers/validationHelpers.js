@@ -1,52 +1,50 @@
-import { v4 as uuidv4 } from "uuid"; // id generator npm
-import * as argon2 from "argon2"; // hash npm
-import jwt from "jsonwebtoken"; // json web token npm
+import * as argon2 from "argon2";
+import jwt from "jsonwebtoken";
 
-// validates email address
+// Check for missing required properties
+export const checkForMissingProperties = (
+  requiredProperties,
+  providedProperties
+) => {
+  let missingProperties = [];
 
-export const validateEmail = (req, res, next) => {
-  let email = req.body.email;
+  requiredProperties.forEach((prop) => {
+    if (!providedProperties.hasOwnProperty(prop)) {
+      missingProperties.push(prop);
+    }
+  });
+  if (missingProperties.length) {
+    return res.status(400).json({
+      message: "validation error",
+      invalid: missingProperties,
+    });
+  }
+};
+
+// Validate email address
+export const validateEmail = (email) => {
   let regex = new RegExp(
     "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])"
   );
 
   if (!regex.test(email)) {
-    return res.status(400).json({ message: "invalid email address" });
+    return res.status(400).json({ message: "Invalid email address" });
   }
-  next();
 };
 
-// checks password length (minimum 8 characters)
-
-export const checkPasswordLength = (req, res, next) => {
-  let password = req.body.password;
-  if (password.length < 8) {
-    return res
-      .status(400)
-      .json({ message: "password must be at least 8 characters." });
-  }
-  next();
-};
-
-// generates ID number
-
-export const generateUserId = () => uuidv4();
-
-// Argon2 salts and hashes password
-
-export const hashForOnceAndForAll = async (password) => {
+// Hash password
+export const hashPassword = async (password) => {
   try {
     const hash = await argon2.hash(password);
     return hash;
   } catch {
     return res
       .status(500)
-      .json({ message: "internal error. Cannot fulfill request" });
+      .json({ message: "Error encountered when hashing password." });
   }
 };
 
-// Argon2 verifies a password
-
+// Verify Password
 export const verifyPassword = async (hashOnFile, enteredPassword) => {
   try {
     if (await argon2.verify(hashOnFile, enteredPassword)) {
@@ -57,12 +55,11 @@ export const verifyPassword = async (hashOnFile, enteredPassword) => {
   } catch (err) {
     return res
       .status(500)
-      .json({ message: "internal error. Cannot fulfill request" });
+      .json({ message: "Error encountered. Could not verify password." });
   }
 };
 
-// verifies a JSON web token
-
+// Verify JSON token
 export const verifyToken = (req, res, next) => {
   const bearerToken = req.headers.authorization.split(" ")[1];
 
