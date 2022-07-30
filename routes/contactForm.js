@@ -1,10 +1,13 @@
 import express from "express";
-import { validateFormInfo } from "../helpers/contactFormHelpers.js";
+import {
+  validateFormInfo,
+  createNewForm,
+} from "../helpers/contactFormHelpers.js";
 
 const router = express.Router();
 
 // Create a new contact form entry
-router.post("/", validateFormInfo);
+router.post("/", validateFormInfo, createNewForm);
 
 // Get all contact form entries
 router.get("/");
